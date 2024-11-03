@@ -1,19 +1,19 @@
 export class Planta {
     id: number;
-    nombrecomun: string;
-    nombrecientifico: string;
+    nombre_comun: string;
+    nombre_cientifico: string;
     tipo: string;
-    alturamaxima: number;
+    altura_maxima: number;
     clima: string;
-    sustratosiembra: string;
+    sustrato_siembra: string;
 
-    public constructor(id: number, nombrecomun: string, nombrecientifico: string, tipo: string, alturamaxima: number,clima: string, sustratosiembra:string) {
+    constructor(id: number, nombre_comun: string, nombre_cientifico: string, tipo: string, altura_maxima: number,clima: string, sustrato_siembra:string) {
         this.id = id;
-        this.nombrecomun = nombrecomun;
-        this.nombrecientifico = nombrecientifico;
+        this.nombre_comun = nombre_comun;
+        this.nombre_cientifico = nombre_cientifico;
         this.tipo = tipo;
-        this.alturamaxima = alturamaxima;
+        this.altura_maxima = altura_maxima;
         this.clima = clima;
-        this.sustratosiembra = sustratosiembra;
+        this.sustrato_siembra = sustrato_siembra;
     }
 }

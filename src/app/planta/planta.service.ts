@@ -11,7 +11,7 @@ import { environment } from '../../environments/environment.development';
 
 export class PlantaService {
     
-    private apiUrl: string = environment.baseUrl + 'plantas';
+    private apiUrl: string = environment.baseUrl;
 
     constructor(private http: HttpClient) { }
 

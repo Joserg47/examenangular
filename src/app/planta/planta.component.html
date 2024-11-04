@@ -3,7 +3,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th class="h4">#</th>
+          <th class="h4 column_id">#</th>
           <th class="h4">Nombre Comun</th>
           <th class="h4">Tipo</th>
           <th class="h4">Clima</th>
@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let p of plantas">
-          <td>
+          <td class="column_id">
           <dd><strong>{{ p.id }}</strong></dd>
           </td>
           <td>

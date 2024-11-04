@@ -2,12 +2,12 @@
 
 import { TestBed, inject } from '@angular/core/testing';
 import { PlantaService } from './planta.service';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from "@angular/common/http/testing";
 
 describe('Service: Planta', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [provideHttpClientTesting],
+      imports: [HttpClientTestingModule],
       providers: [PlantaService]
     });
   });

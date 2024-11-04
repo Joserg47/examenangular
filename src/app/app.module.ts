@@ -5,10 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PlantaModule } from './planta/planta.module';
 import { HttpClientModule } from '@angular/common/http';
+import { PlantaComponent } from './planta/planta.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

@@ -2,38 +2,31 @@ import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { PlantaComponent } from './planta/planta.component';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         RouterModule.forRoot([]),
-        HttpClient
+        HttpClientModule
       ],
       declarations: [
         AppComponent,
         PlantaComponent
-        
       ],
     }).compileComponents();
   });
 
-  it('should create the app', () => {
+  it('Se debe crear la app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'mynewapp'`, () => {
+  it(`Titulo deberia ser examen angular`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('mynewapp');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('Vivero El Otoño');
+    expect(app.title).toEqual('Examen Angular');
   });
 });

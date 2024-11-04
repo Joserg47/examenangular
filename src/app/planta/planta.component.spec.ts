@@ -1,60 +1,76 @@
+// src/app/components/planta/planta.component.spec.ts
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PlantaComponent } from './planta.component';
-import { By } from '@angular/platform-browser';
-import { fakeAsync } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
-import { DebugElement } from '@angular/core';
 import { PlantaService } from './planta.service';
-import { Planta } from './planta';
+import { of } from 'rxjs';
+import { HttpClientTestingModule } from '@angular/common/http/testing'; // Usa el módulo de pruebas
+
 
 describe('PlantaComponent', () => {
   let component: PlantaComponent;
   let fixture: ComponentFixture<PlantaComponent>;
-  let debug: DebugElement;
+  let plantaService: PlantaService;
+
+  const mock_datosplantas = [
+    {
+      id: 1,
+      nombre_comun: 'Rosa',
+      nombre_cientifico: 'Rosa',
+      tipo: 'Flor',
+      altura_maxima: 48,
+      clima: 'Templado',
+      sustrato_siembra: 'Desconocido'
+    },
+    {
+      id: 2,
+      nombre_comun: 'Cactus',
+      nombre_cientifico: 'Cactus',
+      tipo: 'Planta',
+      altura_maxima: 5144,
+      clima: 'Templado',
+      sustrato_siembra: 'Desconocido'
+    },
+    {
+      id: 3,
+      nombre_comun: 'Girasol',
+      tipo: 'Planta',
+      altura_maxima: 51,
+      clima: 'Templado',
+      sustrato_siembra: 'Desconocido'
+    }
+  ];
 
   beforeEach(async () => {
+    const mockPlantaService = jasmine.createSpyObj('PlantaService', ['getPlantas']);
+    mockPlantaService.getPlantas.and.returnValue(of(mock_datosplantas));
+
     await TestBed.configureTestingModule({
-      imports: [HttpClient],
-      declarations: [ PlantaComponent ]
+      imports: [HttpClientTestingModule],
+      declarations: [PlantaComponent],
+      providers: [
+        { provide: PlantaService, useValue: mockPlantaService }
+      ]
     })
     .compileComponents();
-});
-
-    beforeEach(() => {
-        fixture = TestBed.createComponent(PlantaComponent);
-        component = fixture.componentInstance;
-    
-        component.plantas = [
-          { id: 1, nombre_comun: 'Rosa', nombre_cientifico: 'Rosa Gandiflora', tipo: 'interior', altura_maxima: 50, clima: 'tropical', sustrato_siembra: 'tierra' },
-          { id: 2, nombre_comun: 'Girasol', nombre_cientifico: 'Cientifico 2', tipo: 'exterior', altura_maxima: 100, clima: 'templado', sustrato_siembra: 'arena' },
-          { id: 3, nombre_comun: 'Petunia', nombre_cientifico: 'Cientifico 3', tipo: 'interior', altura_maxima: 75, clima: 'tropical', sustrato_siembra: 'tierra' },
-        ];
-    
-    component.calcularTotales(); // Asegúrate de recalcular los totales
-    
-    fixture.detectChanges();
-});
-
-it('debería crear la tabla con tres filas', () => {
-    const compiled = fixture.nativeElement;
-    const rows = compiled.querySelectorAll('tbody tr');
-    expect(rows.length).toBe(3); // Verifica que hay 3 filas
   });
 
-  it('debería mostrar correctamente los datos de las plantas', () => {
-    const compiled = fixture.nativeElement;
-    const rows = compiled.querySelectorAll('tbody tr');
+  beforeEach(() => {
+    fixture = TestBed.createComponent(PlantaComponent);
+    component = fixture.componentInstance;
+    plantaService = TestBed.inject(PlantaService);
+    fixture.detectChanges();
+  });
 
-    expect(rows[0].cells[0].textContent).toContain('Planta 1');
-    expect(rows[0].cells[1].textContent).toContain('interior');
-    expect(rows[0].cells[2].textContent).toContain('tropical');
+  it('se debe mostrar la tabla con las plantas dadas', () => {
+    const tablaFilas = fixture.nativeElement.querySelectorAll('tbody tr');
+    expect(tablaFilas.length).toBe(mock_datosplantas.length);
 
-    expect(rows[1].cells[0].textContent).toContain('Planta 2');
-    expect(rows[1].cells[1].textContent).toContain('exterior');
-    expect(rows[1].cells[2].textContent).toContain('templado');
-
-    expect(rows[2].cells[0].textContent).toContain('Planta 3');
-    expect(rows[2].cells[1].textContent).toContain('interior');
-    expect(rows[2].cells[2].textContent).toContain('tropical');
+    for (let i = 0; i < mock_datosplantas.length; i++) {
+      const celdas = tablaFilas[i].querySelectorAll('td');
+      expect(celdas[0].textContent).toContain(mock_datosplantas[i].id);
+      expect(celdas[1].textContent).toContain(mock_datosplantas[i].nombre_comun);
+      expect(celdas[2].textContent).toContain(mock_datosplantas[i].tipo);
+      expect(celdas[3].textContent).toContain(mock_datosplantas[i].clima);
+    }
   });
 });
